@@ -27,8 +27,7 @@ class Enemy {
   }
 }
 
-// This class requires an update(), render() and
-// a handleInput() method.
+// Our player
 class Player {
   constructor() {
     this.sprite = 'img/char-boy.png';
@@ -40,6 +39,8 @@ class Player {
     // Set width and height for collision detection
     this.width = 66;
     this.height = 75;
+    // Set initial score for player
+    this.score = 0;
   }
   // Update x and y position
   update(dx = 0, dy = 0) {
@@ -82,10 +83,7 @@ function randomNr(max) {
   return Math.floor(Math.random() * Math.floor(max));
 }
 
-// Instantiate objects.
-// Place all enemy objects in an array called allEnemies
-// Place the player object in a variable called player
-const allEnemies = [];
+
 
 function renderEnemies() {
   const enemy = new Enemy();
@@ -95,11 +93,8 @@ function renderEnemies() {
     allEnemies.shift();
   }
 }
-setInterval(renderEnemies, 700 + (500 * Math.random()));
 
-// Instantiate player obj
-const player = new Player();
-
+// Check if enemy obj and player obj collide
 function checkCollisions() {
   allEnemies.forEach(enemy => {
     // Because the picture has some whitespace at the top and side, the x and y pos of the actual visual picture needs to be set
@@ -108,16 +103,28 @@ function checkCollisions() {
     const actualXposPlayer = player.x + 16;
     const actualYposPlayer = player.y + 63;
 
-    // Check if enemy obj and player obj collide (syntax from https://blog.sklambert.com/html5-canvas-game-2d-collision-detection/)
+    // syntax from https://blog.sklambert.com/html5-canvas-game-2d-collision-detection/
 
     if (actualXposEnemy < actualXposPlayer + player.width && actualXposEnemy + enemy.width > actualXposPlayer && actualYposEnemy < actualYposPlayer + player.height && actualYposEnemy + enemy.height > actualYposPlayer) {
-      // Set small timeout, so player does actually 'collide' for a short amount of time instead of teleporting to start immediately
+      // Set small timeout, so player does actually 'collide' for a short amount of time instead of teleporting to start pos immediately
       setTimeout(() => {
         player.x = player.initialX;
         player.y = player.initialY;
+        // Score goes down by 5
+        player.score -= 3;
       }, 20);
     }
   });
+}
+
+function waterReached() {
+  if (player.y < 63) {
+    setTimeout(() => {
+      player.x = player.initialX;
+      player.y = player.initialY;
+      player.score += 1;
+    });
+  }
 }
 
 // This listens for key presses and sends the keys to your
@@ -132,3 +139,12 @@ document.addEventListener('keydown', function(e) {
 
     player.handleInput(allowedKeys[e.keyCode]);
 });
+
+// Instantiate objects.
+// Place all enemy objects in an array called allEnemies
+// Place the player object in a variable called player
+const allEnemies = [];
+setInterval(renderEnemies, 700 + (500 * Math.random()));
+
+// Instantiate player obj
+const player = new Player();
