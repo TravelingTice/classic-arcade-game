@@ -36,17 +36,39 @@ class Player {
     this.sprite = 'img/char-boy.png';
     this.initialX = 202;
     this.x = 202;
-    this.initialY = 202;
-    this.y = 202;
+    this.initialY = 395;
+    this.y = 395;
   }
-  update() {
-    
+  update(dx = 0, dy = 0) {
+    this.x += dx;
+    this.y += dy;
   }
   render() {
-
+    ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
   }
   handleInput(stringOfPressedKey) {
-
+    switch (stringOfPressedKey) {
+      case 'left':
+        if (this.x > 0) {
+          this.update(-101, undefined);
+        }
+        break;
+      case 'right':
+        if (this.x < 404) {
+          this.update(101, undefined);
+        }
+        break;
+      case 'up':
+        if (this.y > 0) {
+          this.update(undefined, -83);
+        }
+        break;
+      case 'down':
+        if (this.y < 395) {
+          this.update(undefined, 83);
+        }
+        break;
+    }
   }
 }
 
