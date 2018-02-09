@@ -39,13 +39,16 @@ class Player {
     this.initialY = 395;
     this.y = 395;
   }
+  // Update x and y position
   update(dx = 0, dy = 0) {
     this.x += dx;
     this.y += dy;
   }
+  // Render image on canvas
   render() {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
   }
+  // Handle the keyboard input, with if-statements preventing the player to move off-screen
   handleInput(stringOfPressedKey) {
     switch (stringOfPressedKey) {
       case 'left':
@@ -85,9 +88,15 @@ function renderEnemies() {
     allEnemies.shift();
   }
 }
+
 setInterval(renderEnemies, 900 + (1000 * Math.random()));
 
 const player = new Player();
+
+//TODO: make checkCollisions function
+function checkCollisions() {
+
+}
 
 // This listens for key presses and sends the keys to your
 // Player.handleInput() method. You don't need to modify this.
