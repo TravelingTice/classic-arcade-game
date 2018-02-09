@@ -8,7 +8,7 @@ class Enemy {
     this.x = -101;
     // Initial y-pos is either 63 (1st stone row), 146 (2nd) or 229 (3rd)
     this.y = 63 + (83 * randomNr(3));
-    this.speed = 100 + (170 * Math.random());
+    this.speed = 150 + (170 * Math.random());
   }
   // Update the enemy's position
   // Parameter: dt, a time delta between ticks
@@ -29,34 +29,42 @@ function randomNr(max) {
   return Math.floor(Math.random() * Math.floor(max));
 }
 
-// Now write your own player class
 // This class requires an update(), render() and
 // a handleInput() method.
 class Player {
   constructor() {
     this.sprite = 'img/char-boy.png';
-
+    this.initialX = 202;
+    this.x = 202;
+    this.initialY = 202;
+    this.y = 202;
   }
-
   update() {
-
+    
   }
-
   render() {
 
   }
-
   handleInput(stringOfPressedKey) {
 
   }
 }
 
-// Now instantiate your objects.
+// Instantiate objects.
 // Place all enemy objects in an array called allEnemies
 // Place the player object in a variable called player
-const enemy = new Enemy();
 allEnemies = [];
-allEnemies.push(enemy);
+
+function renderEnemies() {
+  const enemy = new Enemy();
+  allEnemies.push(enemy);
+  //For performance delete first object in array when there are too many
+  if (allEnemies.length > 10) {
+    allEnemies.shift();
+  }
+}
+setInterval(renderEnemies, 900 + (1000 * Math.random()));
+
 const player = new Player();
 
 // This listens for key presses and sends the keys to your
