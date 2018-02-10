@@ -39,8 +39,9 @@ class Player {
     // Set width and height for collision detection
     this.width = 66;
     this.height = 75;
-    // Set initial score for player
+    // Set initial score + hearts for player
     this.score = 0;
+    this.hearts = 5;
   }
   // Update x and y position
   update(dx = 0, dy = 0) {
@@ -106,25 +107,34 @@ function checkCollisions() {
     // syntax from https://blog.sklambert.com/html5-canvas-game-2d-collision-detection/
 
     if (actualXposEnemy < actualXposPlayer + player.width && actualXposEnemy + enemy.width > actualXposPlayer && actualYposEnemy < actualYposPlayer + player.height && actualYposEnemy + enemy.height > actualYposPlayer) {
+
       // Set small timeout, so player does actually 'collide' for a short amount of time instead of teleporting to start pos immediately
       setTimeout(() => {
         player.x = player.initialX;
         player.y = player.initialY;
-        // Score goes down by 5
-        player.score -= 3;
+        // Heart goes down by 1 (because of delay player collides for 2 ticks, so this function gets run twice)
+        player.hearts -= 1;
       }, 20);
     }
   });
 }
 
+// When water is reached player goes back to initial pos and score gets updated
 function waterReached() {
   if (player.y < 63) {
     setTimeout(() => {
       player.x = player.initialX;
       player.y = player.initialY;
       player.score += 1;
+      updateScore();
     });
   }
+}
+
+// Update score panel
+function updateScore() {
+  const score = document.getElementById('score');
+  score.textContent = player.score;
 }
 
 // This listens for key presses and sends the keys to your

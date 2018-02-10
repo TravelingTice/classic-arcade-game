@@ -3,9 +3,32 @@
 <head>
     <meta charset="UTF-8">
     <title>Effective JavaScript: Frogger</title>
+      <link rel="stylesheet prefetch" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css">
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
+  <div class="container">
+  <div class="score-panel">
+    <p>Your score: <span id="score">0</span></p>
+  <section class="sub-panel">
+    <ul class="stars">
+      <li><i id="heart1" class="fa fa-heart"></i></li>
+      <li><i id="heart2" class="fa fa-heart"></i></li>
+      <li><i id="heart3" class="fa fa-heart"></i></li>
+      <li><i id="heart4" class="fa fa-heart"></i></li>
+      <li><i id="heart5" class="fa fa-heart"></i></li>
+    </ul>
+
+    <div class="timer"><i class="fa fa-clock-o"></i>
+      <span id="minutes">00</span>:<span id="seconds">00</span>
+    </div>
+
+    <div class="restart" onClick="window.location.reload()">
+      <i class="fa fa-repeat"></i>
+    </div>
+  </section>
+    </div>
+  </div>
     <script src="js/resources.js"></script>
     <script src="js/app.js"></script>
     <script src="js/engine.js"></script>
