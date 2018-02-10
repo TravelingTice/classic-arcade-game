@@ -77,6 +77,31 @@ class Player {
         break;
     }
   }
+  // When player touches bug, it loses one heart. When all hearts are lost -> go to end screen
+  loseHeart() {
+    this.hearts -= 0.5;
+    const heart1 = document.getElementById('heart1');
+    const heart2 = document.getElementById('heart2');
+    const heart3 = document.getElementById('heart3');
+    const heart4 = document.getElementById('heart4');
+    const heart5 = document.getElementById('heart5');
+    if (player.hearts === 4) {
+      heart5.setAttribute('class', 'fa fa-heart-o');
+    }
+    if (player.hearts === 3) {
+      heart4.setAttribute('class', 'fa fa-heart-o');
+    }
+    if (player.hearts === 2) {
+      heart3.setAttribute('class', 'fa fa-heart-o');
+    }
+    if (player.hearts === 1) {
+      heart2.setAttribute('class', 'fa fa-heart-o');
+    }
+    if (player.hearts === 0) {
+      heart1.setAttribute('class', 'fa fa-heart-o');
+      renderEndScreen();
+    }
+  }
 }
 
 // Return a random nr between 0 and 2, which will set the bug's initial y-value to one of the three possible rows randomly
@@ -113,7 +138,7 @@ function checkCollisions() {
         player.x = player.initialX;
         player.y = player.initialY;
         // Heart goes down by 1 (because of delay player collides for 2 ticks, so this function gets run twice)
-        player.hearts -= 1;
+        player.loseHeart();
       }, 20);
     }
   });
@@ -158,3 +183,19 @@ setInterval(renderEnemies, 700 + (500 * Math.random()));
 
 // Instantiate player obj
 const player = new Player();
+
+function renderStartScreen() {
+
+}
+
+// Put all game elements to class none and remove this class from end screen
+function renderEndScreen() {
+  const scorePanel = document.querySelector('.container');
+  const canvas = document.getElementById('gamecanvas');
+  const endScreen = document.querySelector('.none');
+  const score = document.getElementById('endScore');
+  scorePanel.setAttribute('class', 'none');
+  canvas.setAttribute('class', 'none');
+  endScreen.setAttribute('class', 'endScreen');
+  score.textContent = player.score;
+}
