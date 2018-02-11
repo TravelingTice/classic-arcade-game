@@ -10,6 +10,10 @@ html, body {
   text-align: center;
 }
 
+audio {
+  display: none;
+}
+
 .container {
   display: flex;
   justify-content: center;
@@ -39,6 +43,10 @@ html, body {
 
 .sub-panel ul li {
   display: inline-block;
+}
+
+#lives {
+  margin-right: 20px;
 }
 
 .sub-panel .timer {

@@ -12,16 +12,13 @@
     <p>Your score: <span id="score">0</span></p>
   <section class="sub-panel">
     <ul class="hearts">
+      <li id="lives">Lives:</li>
       <li><i id="heart1" class="fa fa-heart"></i></li>
       <li><i id="heart2" class="fa fa-heart"></i></li>
       <li><i id="heart3" class="fa fa-heart"></i></li>
       <li><i id="heart4" class="fa fa-heart"></i></li>
       <li><i id="heart5" class="fa fa-heart"></i></li>
     </ul>
-
-    <div class="timer"><i class="fa fa-clock-o"></i>
-      <span id="minutes">00</span>:<span id="seconds">00</span>
-    </div>
 
     <div class="restart" onClick="window.location.reload()">
       <i class="fa fa-repeat"></i>
@@ -38,6 +35,10 @@
     </div>
     <p>Your score: <span id="endScore">0</span></p>
   </div>
+
+  <!-- audio files -->
+  <audio id="dieSound" src="music/died.wav" type="audio/wav"></audio>
+  <audio id="scoreSound" src="music/point.wav" type="audio/wav"></audio>
     <script src="js/resources.js"></script>
     <script src="js/app.js"></script>
     <script src="js/engine.js"></script>

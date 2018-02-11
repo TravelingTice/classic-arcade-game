@@ -8,7 +8,8 @@ class Enemy {
     this.x = -101;
     // Initial y-pos is either 63 (1st stone row), 146 (2nd) or 229 (3rd)
     this.y = 63 + (83 * randomNr(3));
-    this.speed = 150 + (170 * Math.random());
+    // Bug accelerates as score gets higher
+    this.speed = 150 + (170 * Math.random() + (10 * player.score));
     // Set width and height for collision detection
     this.width = 97;
     this.height = 66;
@@ -104,20 +105,36 @@ class Player {
   }
 }
 
-// Return a random nr between 0 and 2, which will set the bug's initial y-value to one of the three possible rows randomly
-function randomNr(max) {
-  return Math.floor(Math.random() * Math.floor(max));
-}
+// Instantiate objects.
+// Place all enemy objects in an array called allEnemies
+// Place the player object in a variable called player
+const player = new Player();
 
+const allEnemies = [];
+// Set initial interval speed
+let counterInterval = 1200;
 
+//Get audio tags from HTML file
+const dieSound = document.getElementById('dieSound');
+const scoreSound = document.getElementById('scoreSound');
 
+//Render enemies
 function renderEnemies() {
+  console.log(counterInterval);
   const enemy = new Enemy();
   allEnemies.push(enemy);
   //For performance delete first object in array when there are too many
-  if (allEnemies.length > 10) {
+  if (allEnemies.length > 20) {
     allEnemies.shift();
   }
+  //Accelerates time gap between bug renders => the higher the score, the smaller the interval time
+  setTimeout(renderEnemies, counterInterval);
+}
+setTimeout(renderEnemies, counterInterval);
+
+// Return a random nr between 0 and 2, which will set the bug's initial y-value to one of the three possible rows randomly
+function randomNr(max) {
+  return Math.floor(Math.random() * Math.floor(max));
 }
 
 // Check if enemy obj and player obj collide
@@ -132,7 +149,8 @@ function checkCollisions() {
     // syntax from https://blog.sklambert.com/html5-canvas-game-2d-collision-detection/
 
     if (actualXposEnemy < actualXposPlayer + player.width && actualXposEnemy + enemy.width > actualXposPlayer && actualYposEnemy < actualYposPlayer + player.height && actualYposEnemy + enemy.height > actualYposPlayer) {
-
+      // Play died sound
+      dieSound.play();
       // Set small timeout, so player does actually 'collide' for a short amount of time instead of teleporting to start pos immediately
       setTimeout(() => {
         player.x = player.initialX;
@@ -144,15 +162,22 @@ function checkCollisions() {
   });
 }
 
-// When water is reached player goes back to initial pos and score gets updated
+// When water is reached player goes back to initial pos and score gets updated, also the interval for bug spawns gets less
 function waterReached() {
   if (player.y < 63) {
+    // Play point.wav
+    scoreSound.play();
+    // Add 1 to score (stays on water for 2 ticks, so 0.5 * 2)
+    player.score += 0.5;
     setTimeout(() => {
       player.x = player.initialX;
       player.y = player.initialY;
-      player.score += 1;
+      // Minimum interval is 0.5 sec
+      if (!counterInterval <= 500) {
+        counterInterval -= 20;
+      }
       updateScore();
-    });
+    }, 20);
   }
 }
 
@@ -174,19 +199,6 @@ document.addEventListener('keydown', function(e) {
 
     player.handleInput(allowedKeys[e.keyCode]);
 });
-
-// Instantiate objects.
-// Place all enemy objects in an array called allEnemies
-// Place the player object in a variable called player
-const allEnemies = [];
-setInterval(renderEnemies, 700 + (500 * Math.random()));
-
-// Instantiate player obj
-const player = new Player();
-
-function renderStartScreen() {
-
-}
 
 // Put all game elements to class none and remove this class from end screen
 function renderEndScreen() {
