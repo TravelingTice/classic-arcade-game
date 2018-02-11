@@ -45,15 +45,14 @@ audio {
   display: inline-block;
 }
 
+.fa-heart {
+  color: red;
+}
+
 #lives {
   margin-right: 20px;
 }
 
-.sub-panel .timer {
-  display: inline-block;
-  position: relative;
-  left: 90px;
-}
 
 .restart {
   position: relative;
@@ -74,6 +73,18 @@ audio {
   justify-content: center;
   height: 100%;
   font-family: Arial, "Helvetica Neue", Helvetica, sans-serif;
-  font-size: 60px;
+  font-size: 40px;
   width: 800px;
+}
+
+
+button {
+  width: 230px;
+  height: 65px;
+  border: none;
+  background-color: #1a4791;
+  color: white;
+  font-size: 30px;
+  border-radius: 5px;
+  cursor: pointer;
 }
