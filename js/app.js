@@ -120,7 +120,6 @@ const scoreSound = document.getElementById('scoreSound');
 
 //Render enemies
 function renderEnemies() {
-  console.log(counterInterval);
   const enemy = new Enemy();
   allEnemies.push(enemy);
   //For performance delete first object in array when there are too many
