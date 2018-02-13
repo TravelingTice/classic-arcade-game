@@ -86,19 +86,19 @@ class Player {
     const heart3 = document.getElementById('heart3');
     const heart4 = document.getElementById('heart4');
     const heart5 = document.getElementById('heart5');
-    if (player.hearts === 4) {
+    if (player.hearts <= 4) {
       heart5.setAttribute('class', 'fa fa-heart-o');
     }
-    if (player.hearts === 3) {
+    if (player.hearts <= 3) {
       heart4.setAttribute('class', 'fa fa-heart-o');
     }
-    if (player.hearts === 2) {
+    if (player.hearts <= 2) {
       heart3.setAttribute('class', 'fa fa-heart-o');
     }
-    if (player.hearts === 1) {
+    if (player.hearts <= 1) {
       heart2.setAttribute('class', 'fa fa-heart-o');
     }
-    if (player.hearts === 0) {
+    if (player.hearts <= 0) {
       heart1.setAttribute('class', 'fa fa-heart-o');
       renderEndScreen();
     }

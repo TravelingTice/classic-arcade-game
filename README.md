@@ -4,6 +4,17 @@
 
 By moving the player across the field try to reach the water without getting hit by the evil bugs! When you reach the water you gain 1 point. Try to get as many points as possible! But watch out: the higher your score, the harder it will get...
 
+### Instructions:
+
+- Open up index.html and the canvas will load immediately, so you can start playing right away.
+- Keys:
+  - Arrow-up: Moves player up one square
+  - Arrow-down: Moves player down one square
+  - Arrow-left: Moves player left one square
+  - Arrow-down: Moves player down one square
+- When you hit a bug, you get teleported back to the initial position and you lose one heart
+- When you reach the water you also get teleported back to the initial position and the score goes up by one
+
 ## Setup
 
 1. The game is made using HTML Canvas
